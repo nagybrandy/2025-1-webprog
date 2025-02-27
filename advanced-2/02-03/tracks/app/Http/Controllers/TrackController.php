@@ -19,15 +19,16 @@ class TrackController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
+        $request->validate([
+            'title' => 'required|string|max:255',
             'artist' => 'required|string|max:255',
-            'album' => 'required|string|max:255',
-            'length' => 'required|integer',
-            'release_year' => 'required|integer',
+            'album' => 'nullable|string|max:255',
+            'length' => 'required|integer|min:1',
+            'release_year' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
-        
-        Track::createTrack($validated);
-        return redirect()->route('tracks.index');
+
+        Track::create($request->all());
+
+        return redirect()->route('tracks.create')->with('success', 'Track created successfully!');
     }
 }

@@ -2,28 +2,31 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('tracks.store') }}" method="post">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name">
-        </div>
-        <div>
-            <label for="artist">Artist</label>
-            <input type="text" name="artist" id="artist">
-        </div>
-        <div>
-            <label for="album">Album</label>
-            <input type="text" name="album" id="album">
-        </div>
-        <div>
-            <label for="length">Length</label>
-            <input type="text" name="length" id="length">
-        </div>
-        <div>
-            <label for="release_year">Release Year</label>
-            <input type="text" name="release_year" id="release_year">
-        </div>
-        <button type="submit">Create</button>
+
+@if (session('success'))
+<p class="success">{{ session('success') }}</p>
+@endif
+
+<form action="{{ route('tracks.store') }}" method="POST">
+    @csrf
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="artist">Artist:</label>
+    <input type="text" id="artist" name="artist" required>
+
+    <label for="album">Album (optional):</label>
+    <input type="text" id="album" name="album">
+
+    <label for="length">Length (in seconds):</label>
+    <input type="number" id="length" name="length" required>
+
+    <label for="release_year">Release Year:</label>
+    <input type="number" id="release_year" name="release_year" required>
+
+    <button type="submit">Create Track</button>
+</form>
     </form>
 @endsection
 
