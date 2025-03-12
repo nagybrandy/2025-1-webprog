@@ -9,5 +9,5 @@ use Illuminate\Notifications\Notifiable;
 class Track extends Model
 {
     use HasFactory, Notifiable;
-    protected $fillable = ['title', 'artist', 'description', 'duration'];
+    protected $fillable = ['title', 'artist', 'album', 'duration', 'release_year'];
 }

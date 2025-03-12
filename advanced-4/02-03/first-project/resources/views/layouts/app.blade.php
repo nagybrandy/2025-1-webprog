@@ -34,32 +34,24 @@
                   <li>
                     <a>Parent</a>
                     <ul class="p-2">
-                      <li><a>Submenu 1</a></li>
+                      <li><a>Login</a></li>
                       <li><a>Submenu 2</a></li>
                     </ul>
                   </li>
                   <li><a>Item 3</a></li>
                 </ul>
               </div>
-              <a  href="/" class="text-xl btn btn-ghost">daisyUI</a>
+              <a  href="/" class="text-xl btn btn-ghost">TracksApp</a>
             </div>
             <div class="hidden navbar-center lg:flex">
               <ul class="px-1 menu menu-horizontal">
-                <li><a>Item 1</a></li>
-                <li>
-                  <details>
-                    <summary>Parent</summary>
-                    <ul class="p-2">
-                      <li><a>Submenu 1</a></li>
-                      <li><a>Submenu 2</a></li>
-                    </ul>
-                  </details>
-                </li>
-                <li><a>Item 3</a></li>
+                <li><a href="{{ route('login') }}">Login</a></li>
+                <li><a href="{{ route('register') }}">Register</a></li>
+                <li><a href="{{ route('tracks.store') }}">Tracks</a></li>
               </ul>
             </div>
             <div class="navbar-end">
-              <a class="btn">Button</a>
+              <a href="{{ route('tracks.create') }}" class="btn btn-secondary">Add track</a>
             </div>
           </div>
         @yield('content')

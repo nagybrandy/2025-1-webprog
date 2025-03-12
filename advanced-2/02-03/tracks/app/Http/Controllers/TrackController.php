@@ -20,7 +20,7 @@ class TrackController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'artist' => 'required|string|max:255',
             'album' => 'nullable|string|max:255',
             'length' => 'required|integer|min:1',
@@ -28,7 +28,32 @@ class TrackController extends Controller
         ]);
 
         Track::create($request->all());
+        
+        return redirect()->route('tracks.viewTracks')->with('success', 'Track created successfully!');
+    }
+    public function viewTracks()
+    {
+        $tracks = Track::allTracks();
+        return view('tracks.index', compact('tracks'));
+    }
 
-        return redirect()->route('tracks.create')->with('success', 'Track created successfully!');
+    public function delete($id)
+    {
+        $track = Track::find($id);
+        $track->delete();
+        return redirect()->route('tracks.viewTracks')->with('success', 'Track deleted successfully!');
+    }
+
+    public function edit($id)
+    {
+        $track = Track::find($id);
+        return view('tracks.edit', compact('track'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $track = Track::find($id);
+        $track->update($request->all());
+        return redirect()->route('tracks.viewTracks')->with('success', 'Track updated successfully!');
     }
 }

@@ -17,10 +17,10 @@ class TrackFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(3),
+            'name' => fake()->text(10),
             'artist' => fake()->name(),
-            'album' => fake()->sentence(3),
-            'duration' => fake()->time('i:s'),
+            'album' => fake()->company(),
+            'length' => fake()->numberBetween(100, 300),
             'release_year' => fake()->year(),
         ];
     }

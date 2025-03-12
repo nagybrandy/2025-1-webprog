@@ -2,22 +2,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container p-10 mx-auto">   
+@if (session('success'))
+<div class="toast">
+  <div class="alert alert-success">
+    <span>{{ session('success') }}</span>
+  </div>
+</div>
+<script>
+  setTimeout(() => {
+    document.querySelector('.toast').remove();
+  }, 3000);
+</script>
+@endif
+<div class="container w-8/12 p-10 mx-auto">   
     <h1 class="text-4xl font-bold">Tracks    <a href="{{ route('tracks.create') }}" class="btn btn-primary">Create</a>
     </h1>
-    <div class="grid grid-cols-4 gap-4 my-10">
-        @foreach ($tracks as $track)
-        <div class="shadow-xl bg-primary text-primary-content card bg-base-100">
-            <div class="p-6 card-body">
-              <h2 class="card-title">{{ $track->title }} - {{ $track->artist }}</h2>
-              <p>{{ $track->description }}</p>
-              <div class="flex justify-between p-0">
-                  <div class="badge badge-secondary">Album 1</div>
-                  <div class="badge badge-neutral">{{$track->duration}} seconds</div>
-              </div>
-            </div>
-          </div>
-        @endforeach
+    <div class="overflow-y-auto max-h-96">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>Duration</th>
+              <th>Release Year</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($tracks as $track)
+            <tr class="hover:bg-base-300">
+              <th>{{ $track->id }}</th>
+              <td>{{ $track->title }}</td>
+              <td>{{ $track->artist }}</td>
+              <td>{{ $track->album }}</td>
+              <td>{{ $track->duration }}</td>
+              <td>{{ $track->release_year }}</td>
+              <td class="flex flex-col justify-between h-full">
+                <a href="{{ route('tracks.edit', $track->id) }}" class="w-full mb-1 btn btn-warning btn-xs">Edit</a>
+                <form action="{{ route('tracks.destroy', $track->id) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="w-full btn btn-error btn-xs">Delete</button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
     </div>
-    </div>
+  </div>
 @endsection

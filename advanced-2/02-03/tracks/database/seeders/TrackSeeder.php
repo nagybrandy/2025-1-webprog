@@ -15,7 +15,7 @@ class TrackSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        
         $track1 = Track::createTrack([
             'name' => 'Song 1',
             'artist' => 'Artist 1',
@@ -37,5 +37,6 @@ class TrackSeeder extends Seeder
             'length' => 190,
             'release_year' => 2023,
         ]);
+        Track::factory(10)->create();
     }
 }

@@ -23,10 +23,31 @@ class TrackController extends Controller
         $request->validate([
             'title' => 'required',
             'artist' => 'required',
-            'description' => 'required',
+            'album' => 'required',
             'duration' => 'required',
+            'release_year' => 'required',
         ]);
         $track = Track::create($request->all());
-        return redirect()->route('tracks.index');
+        return redirect()->route('tracks.index')->with('success', 'Track created successfully!');
+    }
+
+    public function destroy($trackId)
+    {
+        $track = Track::find($trackId);
+        $track->delete();
+        return redirect()->route('tracks.index')->with('success', 'Track deleted successfully!');
+    }
+
+    public function edit($trackId)
+    {
+        $track = Track::find($trackId);
+        return view('tracks.edit', compact('track'));
+    }
+
+    public function update(Request $request, $trackId)
+    {
+        $track = Track::find($trackId);
+        $track->update($request->all());
+        return redirect()->route('tracks.index')->with('success', 'Track updated successfully!');
     }
 }

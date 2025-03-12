@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->string('album');
             $table->string('artist');
-            $table->string('description');
-            $table->integer('duration');
+            $table->integer(column: 'duration');
+            $table->integer('release_year');
         });
     }
 
