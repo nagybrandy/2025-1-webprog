@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+
+/* import harry P from local */
+@font-face {
+    font-family: 'Harry P';
+    src: url('../media/HARRYP__.TTF');
+}
+
+
 /* General Styles */
 html {
     background-image     : url("../media/hatter.jpg");
@@ -33,9 +42,11 @@ h1 {
     text-align      : center;
     background-color: #724b39;
     padding         : 10px;
+    font-family     : 'Harry P', cursive;
     color           : white;
     text-shadow     : 3px 5px 6px black;
     border-radius   : 5px 5px 0 0;
+    font-size       : 30px;
 }
 
 h2 {
@@ -207,5 +218,17 @@ hr {
 
     h1 {
         font-size: 1.3rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .hasab {
+        columns: 3;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 900px) {
+    .hasab {
+        columns: 2;
     }
 }
