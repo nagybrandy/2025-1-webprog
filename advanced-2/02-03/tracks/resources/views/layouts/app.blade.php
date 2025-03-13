@@ -1,9 +1,9 @@
 <html data-theme="forest">
   <head>
     <title>App Name - @yield('title')</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <div class="navbar bg-base-100">
@@ -44,6 +44,7 @@
             <li><a href="/tracks">Tracks</a></li>
             <li><a href="/auth/login">Login</a></li>
             <li><a href="/auth/register">Register</a></li>
+            <li><a href={{ route('playlists.index') }}>Playlists</a></li>
           </ul>
         </div>
         <div class="navbar-end">

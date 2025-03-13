@@ -29,4 +29,8 @@ class Track extends Model
         return self::create($data);
     }
 
+    public function playlists()
+    {
+        return $this->belongsToMany(Playlist::class, 'track_playlist');
+    }
 }

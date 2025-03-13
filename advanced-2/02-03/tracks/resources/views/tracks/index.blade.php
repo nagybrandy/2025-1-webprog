@@ -14,7 +14,7 @@
         }, 3000);
       </script>
 @endif
-    <h1 class="w-8/12 mx-auto my-4 mb-6 text-4xl font-bold">Tracks</h1>
+    <h1 class="w-8/12 mx-auto my-4 mb-6 text-4xl font-bold">Tracks {{ isset($tracks->playlist) ? $tracks->playlist->name : 'All' }}</h1>
     <div class="w-8/12 pr-3 mx-auto my-4 overflow-x-auto h-96">
         <table class="table">
           <!-- head -->
@@ -25,6 +25,7 @@
                <th>Artist</th>
                <th>Album</th>
                <th>Length</th>
+               <th>Playlists</th>
                <th>Release Year</th>
                <th>
                </th>
@@ -38,6 +39,11 @@
               <td>{{ $track->artist }}</td>
               <td>{{ $track->album }}</td>
               <td>{{ $track->length }}</td>
+              <td class="flex flex-col space-y-1">
+                @foreach ($track->playlists as $playlist)
+                    <a class="block w-full text-center truncate badge badge-netral" href={{route('tracks.viewTracks', ["playlist_id" => $playlist->id])}}>{{ $playlist->name }}</a>
+                @endforeach
+              </td>
               <td>{{ $track->release_year }}</td>
               <td>
                 <form action="{{ route('tracks.delete', $track->id) }}" method="POST">

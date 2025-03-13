@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackController;
+use App\Http\Controllers\PlaylistController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,3 +29,5 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/tracks/edit/{id}', [TrackController::class, 'edit'])->name('tracks.edit');
 Route::put('/tracks/edit/{id}', [TrackController::class, 'update'])->name('tracks.update');
+
+Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists.index');
