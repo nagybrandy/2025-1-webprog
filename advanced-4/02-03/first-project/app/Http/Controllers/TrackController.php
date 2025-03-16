@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Track;
+use App\Models\Playlist;
 
 class TrackController extends Controller
 {
     public function index()
     {
-        $tracks = Track::all();
+        $playlist_id = isset($_GET['playlist_id']) ? $_GET['playlist_id'] : null;
+        if($playlist_id) {
+            $playlist = Playlist::find($playlist_id);
+            $tracks = $playlist->tracks()->get();
+            $tracks->playlist = $playlist;
+        } else {
+            $tracks = Track::all();
+        }
         return view('tracks.index', compact('tracks'));
     }
 

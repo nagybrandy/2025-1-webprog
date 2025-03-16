@@ -15,7 +15,7 @@
 </script>
 @endif
 <div class="container w-8/12 p-10 mx-auto">   
-    <h1 class="text-4xl font-bold">Tracks    <a href="{{ route('tracks.create') }}" class="btn btn-primary">Create</a>
+    <h1 class="text-4xl font-bold">{{ isset($tracks->playlist) ? 'Playlist: ' . $tracks->playlist->title : 'All Tracks' }}    <a href="{{ route('tracks.create') }}" class="btn btn-primary">Create</a>
     </h1>
     <div class="overflow-y-auto max-h-96">
         <table class="table">

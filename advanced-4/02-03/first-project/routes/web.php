@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TrackController;
+use App\Http\Controllers\PlaylistController;
 
 Route::get('/', function () {
     return view("landing.hero", data: ["name" => "Bendi"]);
@@ -17,6 +18,7 @@ Route::get('/tracks/create', [TrackController::class, 'create'])->name('tracks.c
 
 Route::post('/tracks', [TrackController::class, 'store'])->name('tracks.store');
 
+Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists.index');
 
 Route::prefix('auth')->group(function () {
     Route::get('login', function () {
@@ -34,4 +36,10 @@ Route::get('/tracks/{trackId}/edit', [TrackController::class, 'edit'])->name('tr
 Route::put('/tracks/{trackId}', [TrackController::class, 'update'])->name('tracks.update');
 
 Route::delete('/tracks/{trackId}', [TrackController::class, 'destroy'])->name('tracks.destroy');
+
+Route::get('/playlists/{playlistId}/edit', [PlaylistController::class, 'edit'])->name('playlists.edit');
+
+Route::put('/playlists/{playlistId}', [PlaylistController::class, 'update'])->name('playlists.update');
+
+Route::delete('/playlists/{playlistId}', [PlaylistController::class, 'destroy'])->name('playlists.destroy');
 
