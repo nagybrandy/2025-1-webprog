@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Playlist extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'genre', 'image'];
+    protected $fillable = ['title', 'description', 'genre', 'image', 'user_id'];
 
     public function tracks()
     {
         return $this->belongsToMany(Track::class, 'tracks_playlists');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(related: User::class);
     }
 }
