@@ -6,6 +6,7 @@ import { Search } from './views/search/Search';
 import { Menu } from './views/layout/Menu';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { Layout } from './views/layout/Layout';
+import Proba from './proba';
 
 export function App() {
   return (
@@ -22,6 +23,7 @@ export function App() {
           </Route>
           <Route path="/tracks" element={<Tracks />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/proba" element={<Proba />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </Layout>

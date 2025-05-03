@@ -2,7 +2,7 @@
 
 import {MdLibraryMusic as PlIcon} from "react-icons/md"
 
-export function PlaylistList({ playlists, setSelectedPlaylistId, selectedPlaylistId, setSelectedTrackInd }) {
+export function PlaylistList({ playlists, selectedPlaylistId, handleRouteChange }) {
   return (
     <div className="w-full h-full shadow-xl join join-vertical bg-base-300">
       <h2 className="p-3 text-2xl font-bold join-item">Playlists</h2>
@@ -11,7 +11,7 @@ export function PlaylistList({ playlists, setSelectedPlaylistId, selectedPlaylis
           <div 
               key={playlist.id}
               className={`btn border-0 rounded-lg items-start p-3 hover:bg-base-200 ${selectedPlaylistId === playlist.id ? "bg-base-200" : "bg-base-300"}`} 
-              onClick={() => {setSelectedPlaylistId(playlist.id); setSelectedTrackInd(undefined)}}
+              onClick={() => handleRouteChange(playlist.id, undefined)}
           >
             <div className="flex px-5 w-[100%]">
               <div className="w-8/12 font-bold text-left">

@@ -1,16 +1,18 @@
-import { Button } from "./components/ui/button"
 
-interface GreetingProps {
-    name: string
-    age: number
+interface Person {
+  id: number
+  name: string
+  age: number
 }
 
-const Greeting = ({ name, age } : GreetingProps) => {
-  console.log(name)
+interface GreetingProps {
+    person: Person
+}
+
+const Greeting = ({ person } : GreetingProps) => {
   return (
     <div>
-      Hello {name}, you are {age} years old!
-      <Button>{name}</Button>
+      Hello {person.name}, you are {person.age} years old!
     </div>
   )
 }
