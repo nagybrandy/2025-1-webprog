@@ -6,8 +6,9 @@ import LandingPage from './views/landing/LandingPage'
 import Layout from './views/layout/Layout'
 import LoginPage from './views/login/LoginPage'
 import MoviePage from './views/movie/MoviePage'
+import MyBookings from './views/bookings/MyBookings'
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/movie/:id" element={<MoviePage />} />
                 <Route path="*" element={<LandingPage />} />
+                <Route path="/bookings" element={<MyBookings />} />
             </Routes>
           </Layout>
         </ThemeProvider>

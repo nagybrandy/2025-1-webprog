@@ -4,6 +4,7 @@ import { Track } from "./Track";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { Modal } from "react-daisyui";
 import { useState } from "react";
+import { useGetAllTracksQuery, useAddTrackMutation } from "../../store/playlistApi";
 
 export function Tracks() {
   const [open, setOpen] = useState(false)
@@ -11,7 +12,13 @@ export function Tracks() {
     Dialog,
     handleShow
   } = Modal.useDialog();
-  const [tracks, setTracks] = useState(exampleTracks);
+
+  const {data, isLoading, isError} = useGetAllTracksQuery()
+
+  const [addTrack, {isLoading: isAdding}] = useAddTrackMutation()
+
+  console.log(data)
+  const [tracks, setTracks] = useState(data?.data);
   const [edit, setEdit] = useState(undefined)
   
   const handleClick = ()=> {
@@ -26,6 +33,8 @@ export function Tracks() {
         ...tracks,
         newtrack
       ])
+      addTrack(newtrack)
+      
     } 
     else {
       const ind = tracks.findIndex(track => track.id === newtrack.id);
@@ -52,6 +61,11 @@ export function Tracks() {
     setOpen(true)
     setEdit(track)
   }
+
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="mt-5">
         <div className="join join-vertical w-full bg-base-300 shadow-xl overflow-x-hidden h-[80vh] pb-3 ">
@@ -60,7 +74,7 @@ export function Tracks() {
             <button className="flex-none text-lg btn btn-neutral text-neutral-content" onClick={handleClick}><PlusIcon /></button>
           </div>
           <div className="overflow-y-scroll w-full join join-vertical pl-[0.6rem]  overflow-hidden">
-            {tracks.map((track) => (
+            {tracks?.map((track) => (
                 <Track track={track} key={track.id} handleDelete={handleDelete} handleEdit={handleEdit}/>
             ))}
           </div>

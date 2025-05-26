@@ -4,6 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useState } from 'react'
 import userStore from '@/store/userStore'
 import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { loginUser } from '@/services/useAuth'
+import { toast } from "sonner"
+
 export default function LoginPage() {
   // controlled - state - formi
   /* const [counter, setCounter] = useState(0) */
@@ -16,11 +20,25 @@ export default function LoginPage() {
     console.log(count) */
 
   const { login } = userStore()
+
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onError: (e : any)=> {
+      console.log(e)
+      toast.error(e.response.data.message)
+    },
+    onSuccess: (e)=> {
+      console.log(e)
+      navigate('/')
+      login(e.data)
+
+    }
+  })
   const navigate = useNavigate()
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    login({ name: formData.email, email: formData.email })
-    navigate('/')
+    loginMutation.mutate({ email: formData.email, password: formData.password })
   }
   return (
     <div className="container mx-auto flex items-center justify-center my-10">

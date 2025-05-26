@@ -2,10 +2,12 @@ import React from 'react'
 import { useGetAllPeopleQuery } from '../../store/swApi'
 import PersonData from './components/PersonData'
 import { useState } from 'react'
+
 const People = () => {
     const { data: people, isLoading, isError } = useGetAllPeopleQuery()
     console.log(people)
     const [uid, setUid] = useState(null)
+
     if (isLoading) return <span className="loading loading-spinner loading-md"></span>
 
     return (

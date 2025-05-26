@@ -9,6 +9,7 @@ import { Layout } from './views/layout/Layout';
 import { Provider } from 'react-redux'
 import store from './store/store'
 import People from './views/sw/People';
+
 export function App() {
   return (
     <Provider store={store}>  

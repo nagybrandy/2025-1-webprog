@@ -11,3 +11,12 @@ export const useMovies = () => {
     })
 }
 
+export const useAddMovie = (movie: any) => {
+    const response = api.post("/movies", movie, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+
+    return response
+}

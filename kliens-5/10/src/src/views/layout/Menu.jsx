@@ -8,11 +8,15 @@ import logo from "./logo.png"
 import { NavLink } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux'
 import { logOut } from '../../store/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const Menu = () => {
     const {user, isLoggedIn} = useSelector(state => state.user)
     const dispatch = useDispatch()
-    console.log(user, isLoggedIn)
+    console.log(user.user.email, isLoggedIn)
+    const navigate = useNavigate()
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -72,7 +76,7 @@ export const Menu = () => {
             </div>
             <div className="navbar-end">
                 <div className="dropdown">
-                    <NavLink to="/" tabIndex={0} role="button" className="m-1 btn">{isLoggedIn ? <><UserIcon />{user}</> : "Login" } </NavLink>
+                    <NavLink to="/" tabIndex={0} role="button" className="m-1 btn">{isLoggedIn ? <><UserIcon />{user.user.email}</> : "Login" } </NavLink>
                     {isLoggedIn && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52">
                         <li><NavLink>Playlists</NavLink></li>
                         <li><NavLink onClick={() => dispatch(logOut())}>Logout</NavLink></li>

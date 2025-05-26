@@ -4,6 +4,7 @@ import { Track } from "./Track";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { Modal } from "react-daisyui";
 import { useState } from "react";
+import { useGetAllTracksQuery, useAddNewTrackMutation } from "../../store/playlistsApi";
 
 export function Tracks() {
   const [open, setOpen] = useState(false)
@@ -11,7 +12,11 @@ export function Tracks() {
     Dialog,
     handleShow
   } = Modal.useDialog();
-  const [tracks, setTracks] = useState(exampleTracks);
+
+  const { data : tracks, error, isFetching, isLoading } = useGetAllTracksQuery()
+  const [addNewTrack, { data, isError, isSuccess }] = useAddNewTrackMutation()
+
+  
   const [edit, setEdit] = useState(undefined)
   
   const handleClick = ()=> {
@@ -20,20 +25,10 @@ export function Tracks() {
 
   const handleSave = (newtrack, edit) => {
     if(!edit){
-      const maxId = Math.max(...tracks.map(track => track.id));
-      newtrack.id = maxId+1
-      setTracks([
-        ...tracks,
-        newtrack
-      ])
+      addNewTrack(newtrack)
     } 
     else {
-      const ind = tracks.findIndex(track => track.id === newtrack.id);
-      setTracks([
-        ...tracks.slice(0, ind),
-        newtrack,
-        ...tracks.slice(ind+1)
-    ])
+    const ind = tracks.findIndex(track => track.id === newtrack.id);
     setEdit(undefined)
     }
 
@@ -52,6 +47,15 @@ export function Tracks() {
     setOpen(true)
     setEdit(track)
   }
+
+  if(isFetching || isLoading){
+    return <span className="loading loading-spinner loading-xl"></span>
+  }
+  
+  if(error) {
+    return <div>Error: {error.data.message}</div>
+  }
+    
   return (
     <div className="mt-5">
         <div className="join join-vertical w-full bg-base-300 shadow-xl overflow-x-hidden h-[80vh] pb-3 ">
@@ -60,7 +64,7 @@ export function Tracks() {
             <button className="flex-none text-lg btn btn-neutral text-neutral-content" onClick={handleClick}><PlusIcon /></button>
           </div>
           <div className="overflow-y-scroll w-full join join-vertical pl-[0.6rem]  overflow-hidden">
-            {tracks.map((track) => (
+            {tracks?.data?.map((track) => (
                 <Track track={track} key={track.id} handleDelete={handleDelete} handleEdit={handleEdit}/>
             ))}
           </div>

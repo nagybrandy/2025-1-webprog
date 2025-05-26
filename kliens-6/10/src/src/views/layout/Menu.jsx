@@ -72,7 +72,7 @@ export const Menu = () => {
             </div>
             <div className="navbar-end">
                 <div className="dropdown">
-                    <NavLink to="/" tabIndex={0} role="button" className="m-1 btn">{isLoggedIn ? <><UserIcon />{user}</> : "Login" } </NavLink>
+                    <NavLink to="/" tabIndex={0} role="button" className="m-1 btn">{isLoggedIn ? <><UserIcon />{user.user.email}</> : "Login" } </NavLink>
                     {isLoggedIn && <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52">
                         <li><NavLink>Playlists</NavLink></li>
                         <li><NavLink onClick={() => dispatch(logOut())}>Logout</NavLink></li>
